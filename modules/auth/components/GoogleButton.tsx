@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { FiLoader } from "react-icons/fi";
-import { toast } from "sonner";
-import { authClient } from "@/lib/auth-client";
 
 interface GoogleButtonProps {
   label?: string;
@@ -13,27 +11,14 @@ interface GoogleButtonProps {
 export default function GoogleButton({ label = "Continue with Google" }: GoogleButtonProps) {
   const [loading, setLoading] = useState(false);
 
-  const handleClick = async () => {
+  const handleClick = () => {
     setLoading(true);
-    try {
-      const result = await authClient.signIn.social({
-        provider: "google",
-        callbackURL: `${window.location.origin}/dashboard`,
-      });
-
-      if (result?.error) {
-        // Better Auth returned a structured error (provider not configured, etc.)
-        toast.error(result.error.message ?? "Google sign-in failed. Please try again.");
-        setLoading(false);
-        return;
-      }
-      // On success Better Auth redirects the browser — loading stays true intentionally
-    } catch (err) {
-      // Network error or server unreachable
-      console.error("[GoogleButton] signIn.social threw:", err);
-      toast.error("Could not reach the server. Please check your connection.");
-      setLoading(false);
-    }
+    // Direct browser navigation avoids cross-domain cookie issues.
+    // authClient.signIn.social() uses fetch, which causes state_mismatch
+    // when frontend and backend are on different domains (Netlify + Vercel).
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000";
+    const callbackURL = `${window.location.origin}/dashboard`;
+    window.location.href = `${apiUrl}/api/auth/sign-in/social/google?callbackURL=${encodeURIComponent(callbackURL)}`;
   };
 
   return (
