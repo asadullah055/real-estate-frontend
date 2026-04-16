@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#00D4FF"/>
+      <stop offset="50%"  stop-color="#6644EE"/>
+      <stop offset="100%" stop-color="#CC00FF"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer N shape -->
+  <line x1="18" y1="78" x2="18" y2="18" stroke="url(#g)" stroke-width="10" stroke-linecap="round"/>
+  <line x1="18" y1="18" x2="82" y2="78" stroke="url(#g)" stroke-width="10" stroke-linecap="round"/>
+  <line x1="82" y1="78" x2="82" y2="18" stroke="url(#g)" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Inner tick / accent -->
+  <line x1="38" y1="60" x2="62" y2="42" stroke="url(#g)" stroke-width="7" stroke-linecap="round"/>
+</svg>
