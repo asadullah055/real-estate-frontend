@@ -18,7 +18,7 @@ export default function GoogleButton({ label = "Continue with Google" }: GoogleB
     // when frontend and backend are on different domains (Netlify + Vercel).
     const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000";
     const callbackURL = `${window.location.origin}/dashboard`;
-    window.location.href = `${apiUrl}/api/auth/sign-in/social/google?callbackURL=${encodeURIComponent(callbackURL)}`;
+    window.location.href = `${apiUrl}/api/auth/sign-in/social?provider=google&callbackURL=${encodeURIComponent(callbackURL)}`;
   };
 
   return (
